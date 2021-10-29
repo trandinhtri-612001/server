@@ -1,0 +1,67 @@
+ ###
+post http://localhost:5000/api/auth/admin/register
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTZmODUxZGQzYjg2ZDA5ZTYyY2JmNWYiLCJpYXQiOjE2MzQ2OTkyMDB9.sVXkZPEoJJ7HjqcI2h9zpLHHzsfcPYXWulUg0Q13n6E
+content-type: application/json
+
+{
+    "username":"trantri3",
+    "password":"1234",
+    "email":"trandinhtri3@gmail.com",
+    "phonenumber":"0855788849"
+}
+
+###
+post http://localhost:5000/api/auth/admin/login
+Content-Type: application/json
+
+{
+    "username":"trantri2",
+    "password":"1234"
+}
+
+###
+get http://localhost:5000/api/auth/admin/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTZmODUxZGQzYjg2ZDA5ZTYyY2JmNWYiLCJpYXQiOjE2MzQ3MDAxOTN9.__kS4MlZg9XcXQwoUo_6W75cxehTLDw3XXmWUzH7LbE
+
+
+
+// post 
+###
+post http://localhost:5000/api/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTZmODUxZGQzYjg2ZDA5ZTYyY2JmNWYiLCJpYXQiOjE2MzQ3MDAxOTN9.__kS4MlZg9XcXQwoUo_6W75cxehTLDw3XXmWUzH7LbE
+Content-Type: application/json
+
+{
+    "title":"iphone 12 pro",
+    "description":"dfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfd",
+    "image":"iphone13.png",
+    "category":"mobiles",
+    "status":"STOCKING",
+    "price":250000000,
+    "user":""
+
+}
+
+###
+ get http://localhost:5000/api/post
+
+
+###
+put http://localhost:5000/api/post/616ef14298c8811c7ade4679
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTZlZDMyZGNjNGQ1ZjA2YTNjYTZlMmQiLCJpYXQiOjE2MzQ2NjAzNzl9.aC7l2tJ76kD7uCxajUkw3UO8JjsFjJcU4GNW_CWWiQQ
+Content-Type: application/json
+
+{
+    "title":"iphone 14pro xs max",
+    "description":"hdhjfsjkhdgfssasskdjgfhjdsgfjhasdgfhjsdgf",
+    "image":"iphone3.png",
+    "category":"mobiles",
+    "status":"OUT OF STOCK",
+    "price":30000000,
+    "user":""
+
+}
+
+###
+DELETE http://localhost:5000/api/post/616ef14298c8811c7ade4679
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTZlZDMyZGNjNGQ1ZjA2YTNjYTZlMmQiLCJpYXQiOjE2MzQ2NjAzNzl9.aC7l2tJ76kD7uCxajUkw3UO8JjsFjJcU4GNW_CWWiQQ
