@@ -21,7 +21,7 @@ const userSchema = new Schema({
         required: true
     },
     adress: {
-        type: String,
+        type: Object,
         required:Boolean
     },
     createdAt: {

@@ -5,7 +5,7 @@ const argon2 = require('argon2');
 const Users = require('../Model/user');
 const verifyToken = require('../meddleware/auth');
 const verifyAdminToken  = require('../meddleware/admin')
-
+const { check, validationResult } = require('express-validator');
 
 //GET USER
 //api/auth
@@ -52,7 +52,17 @@ router.get('/find', verifyAdminToken, async (req, res) => {
 //create user
 //api/auth/register
 
-router.post('/register', async(req, res) => {
+router.post('/register',[
+check('username').notEmpty().withMessage('username cannot taken'),
+check('password').notEmpty().withMessage('password cannot taken')
+.isLength({min:8}).withMessage('password must be at least 8 characters'),
+check('email').notEmpty().withMessage('email is not taken')
+.isEmail().withMessage('emmail is not ...'),
+check('phonenumber').notEmpty().withMessage('phonenumber cannot taken')
+.isMobilePhone().withMessage('phonenumber can not ...')
+
+
+],async(req, res) => {
     const { username, password, email, phonenumber } = req.body;
     if (!username || !password || !email || !phonenumber) {
         return res.status(400).json({
@@ -61,7 +71,16 @@ router.post('/register', async(req, res) => {
         });
 
     }
+  
+  
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+       
+      return res.status(400).json({success:false, message:'password must be at least 8 characters or phonenumber can not ...'} );
+    }
     try {
+       console.log("65" + password.length)
+
         const resuser = await Users.findOne({ username: username });
         if (resuser) {
             return res.status(400).json({
@@ -169,7 +188,8 @@ router.put('/:id', verifyToken, async (req, res) => {
         }
 
         const resuser = await Users.findOne({ username: username })
-        if (resuser) {
+        if (resuser && resuser._id!= req.params.id) {
+
          return res.status(400).json({
                 success: false,
             message: "username taken "
@@ -192,11 +212,11 @@ router.put('/:id', verifyToken, async (req, res) => {
         }
         const iduser = {_id:req.params.id}
 
-         userUpdate = await Users.findOneAndUpdate(iduser, userUpdate )
+        const  resuserUpdate = await Users.findOneAndUpdate(iduser, userUpdate )
         res.json({
             success: true,
             message: "user update successfull",
-            userUpdate
+            resuserUpdate
         })
                     
 
@@ -216,7 +236,7 @@ router.put('/:id', verifyToken, async (req, res) => {
 })
 
 //delete user
-//api/auth/
+//api/auth/:id
 router.delete('/:id', verifyToken, async (req, res) => {
 
 
